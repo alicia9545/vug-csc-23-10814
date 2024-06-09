@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple Interest Calculator</title>
+<style>
+    body{
+        background-color: rgba(219, 186, 186, 0.285);
+        font-family: Arial, sans-serif;
+        margin: 10px;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 70vh;
+    }
+    
+    form {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+    }
+
+    label {
+        display: block;
+        margin: 15px 0 5px;
+        color: #555;
+    }
+</style>
+</head>
+<body>
+
+<h2>Simple Interest Calculator</h2>
+
+<form id="simpleInterestForm">
+    <label for="principal">Principal Amount:</label>
+    <input type="number" id="principal" required>
+    <label for="rate">Interest Rate (in %):</label>
+    <input type="number" id="rate" required>
+    <label for="time">Time Period (in years):</label>
+    <input type="number" id="time" required>
+    <button type="button" onclick="calculateSimpleInterest()">Calculate</button>
+</form>
+
+<p id="result"></p>
+
+<script>
+    function calculateSimpleInterest() {
+        const principal = parseFloat(document.getElementById("principal").value);
+        const rate = parseFloat(document.getElementById("rate").value);
+        const time = parseFloat(document.getElementById("time").value);
+
+        const simpleInterest = (principal * rate * time) / 100;
+        const totalAmount = principal + simpleInterest;
+
+        document.getElementById("result").innerHTML = `Simple Interest: $${simpleInterest.toFixed(2)}<br>Total Amount: $${totalAmount.toFixed(2)}`;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compound Interest Calculator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: right;
+        height: 70vh;
+    }
+
+    h2 {
+        color: #333;
+    }
+
+    form {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+    }
+
+    label {
+        display: block;
+        margin: 15px 0 5px;
+        color: #555;
+    }
+
+    input[type="number"] {
+        width: calc(100% - 22px);
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    button {
+        background: #88020d;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    button:hover {
+        background: #0056b3;
+    }
+
+    #result {
+        margin-top: 20px;
+        font-weight: bold;
+        color: #333;
+    }
+</style>
+</head>
+<body>
+
+<h2>Compound Interest Calculator</h2>
+
+<form id="compoundInterestForm">
+    <label for="principal">Principal Amount:</label>
+    <input type="number" id="principal" required>
+    <label for="rate">Annual Interest Rate (in %):</label>
+    <input type="number" id="rate" required>
+    <label for="time">Time Period (in years):</label>
+    <input type="number" id="time" required>
+    <label for="compounded">Times Compounded per Year:</label>
+    <input type="number" id="compounded" required>
+    <button type="button" onclick="calculateCompoundInterest()">Calculate</button>
+</form>
+
+<p id="result"></p>
+
+<script>
+    function calculateCompoundInterest() {
+        const principal = parseFloat(document.getElementById("principal").value);
+        const rate = parseFloat(document.getElementById("rate").value);
+        const time = parseFloat(document.getElementById("time").value);
+        const compounded = parseInt(document.getElementById("compounded").value);
+
+        const compoundInterest = principal * Math.pow(1 + (rate / (100 * compounded)), compounded * time) - principal;
+
+        document.getElementById("result").innerHTML = `Compound Interest: $${compoundInterest.toFixed(2)}`;
+    }
+</script>
+
+</body>
+</html>

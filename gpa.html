@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CGPA Calculator</title>
+<style>
+    body{
+        background-color: rgba(219, 186, 186, 0.285);
+        font-family: Arial, sans-serif;
+        margin: 10px;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 70vh;
+    }
+    form {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+    }
+
+    label {
+        display: block;
+        margin: 15px 0 5px;
+        color: #555;
+    }
+</style>
+</head>
+<body>
+
+<h2>CGPA Calculator</h2>
+
+<form id="cgpaForm">
+    <label for="subjectName">Subject Name:</label>
+    <input type="text" id="subjectName">
+    <label for="credit">Credit:</label>
+    <input type="number" id="credit">
+    <label for="grade">Grade:</label>
+    <select id="grade">
+        <option value="A+">A+</option>
+        <option value="A">A</option>
+        <option value="A-">A-</option>
+        <option value="B+">B+</option>
+        <option value="B">B</option>
+        <option value="B-">B-</option>
+        <option value="C+">C+</option>
+        <option value="C">C</option>
+        <option value="C-">C-</option>
+        <option value="D">D</option>
+        <option value="F">F</option>
+    </select>
+    <button type="button" onclick="addSubject()">Add Subject</button>
+</form>
+
+<h3>Subjects</h3>
+<ul id="subjectList"></ul>
+
+<button onclick="calculateCGPA()">Calculate CGPA</button>
+<p id="cgpaResult"></p>
+
+<script>
+    let subjects = [];
+
+    function addSubject() {
+        const subjectName = document.getElementById("subjectName").value;
+        const credit = parseInt(document.getElementById("credit").value);
+        const grade = document.getElementById("grade").value;
+
+        subjects.push({ name: subjectName, credit: credit, grade: grade });
+
+        document.getElementById("subjectList").innerHTML +=
+            `<li>${subjectName} - Credit: ${credit}, Grade: ${grade}</li>`;
+        
+        // Clear input fields
+        document.getElementById("subjectName").value = "";
+        document.getElementById("credit").value = "";
+        document.getElementById("grade").value = "A+";
+    }
+
+    function calculateCGPA() {
+        let totalCredits = 0;
+        let totalGradePoints = 0;
+
+        for (let i = 0; i < subjects.length; i++) {
+            const credit = subjects[i].credit;
+            const grade = subjects[i].grade;
+            let gradePoint;
+
+            switch (grade) {
+                case 'A+': gradePoint = 4.0; break;
+                case 'A': gradePoint = 4.0; break;
+                case 'A-': gradePoint = 3.7; break;
+                case 'B+': gradePoint = 3.3; break;
+                case 'B': gradePoint = 3.0; break;
+                case 'B-': gradePoint = 2.7; break;
+                case 'C+': gradePoint = 2.3; break;
+                case 'C': gradePoint = 2.0; break;
+                case 'C-': gradePoint = 1.7; break;
+                case 'D': gradePoint = 1.0; break;
+                case 'F': gradePoint = 0.0; break;
+                default: gradePoint = 0.0;
+            }
+
+            totalGradePoints += gradePoint * credit;
+            totalCredits += credit;
+        }
+
+        const cgpa = totalGradePoints / totalCredits;
+        document.getElementById("cgpaResult").innerHTML = `CGPA: ${cgpa.toFixed(2)}`;
+    }
+</script>
+
+</body>
+</html>
